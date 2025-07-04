@@ -1,0 +1,26 @@
+cardapio-online/
+│
+├── public/
+│   ├── pizza_frango.jpg           # Coloque aqui as imagens dos pratos (acessíveis por URL)
+│   ├── pizza_pepperoni.jpg        # Exemplo de outra imagem de prato
+│   └── ...                       # Outras imagens públicas, se necessário
+│
+├── src/
+│   ├── assets/                    # (Opcional) Para imagens que você queira importar via JS
+│   │   └── (vazio ou imagens opcionais)
+│   ├── components/
+│   │   ├── Menu.jsx               # Componente que lista todos os itens do cardápio
+│   │   └── MenuItem.jsx           # Componente para exibir cada prato individualmente
+│   ├── data/
+│   │   └── menuData.js            # Arquivo JS com o array de objetos dos pratos (dados do cardápio)
+│   ├── App.jsx                    # Componente principal, importa e exibe o Menu
+│   ├── App.css                    # Estilos globais do app (pode personalizar aqui)
+│   ├── index.jsx                  # Ponto de entrada do React, renderiza o App
+│   └── main.jsx                   # Configuração inicial do React (geralmente importa o App e o CSS)
+│
+├── package.json                   # Gerencia dependências e scripts do projeto
+├── package-lock.json              # Trava as versões das dependências
+├── vite.config.js                 # Configuração do Vite (build tool)
+├── eslint.config.js               # Configuração do ESLint (opcional, para padronizar código)
+├── index.html                     # HTML base do app (não precisa mexer muito)
+└── README.md                      # Documentação do projeto (opcional, mas recomendado)
