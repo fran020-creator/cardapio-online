@@ -1,4 +1,5 @@
 import Menu from './components/Menu';
+import './reset.css';
 
 function App() {
   return (
