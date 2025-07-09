@@ -5,6 +5,15 @@ body {
     
 }
 
+ h1 {
+    text-align: center;
+    font-size: 3em;
+}
+
+h2 {
+    padding: 5px;
+    text-align: center;
+}
 
 
  

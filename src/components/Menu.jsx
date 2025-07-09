@@ -1,6 +1,8 @@
 import menu from "../data/menuData";
 import MenuItem from "./MenuItem";
 
+
+
 function Menu() {
     return(
         <div>
