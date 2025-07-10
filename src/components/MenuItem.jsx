@@ -1,12 +1,11 @@
-function MenuItem({nome,descricao,preco,imagem}){
-    return(
-        <div>
-            <img src={imagem} alt={nome}style={{width:150,height:150}}/>
-            <h3>{nome}</h3>
-            <p>{descricao}</p>
-            <p>R${typeof preco ==="number" ? preco.toFixed(2):"Preço não encontrado"}</p>
-
-        </div>
+function MenuItem({ nome, descricao, preco, imagem }) {
+    return (
+      <div className="menu-card">
+        <img src={imagem} alt={`Foto de ${nome}`} />
+        <h3>{nome}</h3>
+        <p>{descricao}</p>
+        <div className="preco">R${typeof preco === "number" ? preco.toFixed(2) : "Preço não encontrado"}</div>
+      </div>
     );
-}
-export default MenuItem;
+  }
+  export default MenuItem;
