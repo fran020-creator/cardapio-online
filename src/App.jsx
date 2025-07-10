@@ -6,7 +6,7 @@ import './App.css';
 function App() {
   return (
     <div>
-      <header><h1>Cardápio Online</h1></header>
+      <header><img src="/logo.jpg" alt="Logo do Restaurante" style={{ height: '90px' }} /></header>
       <Menu />
     </div>
   );
