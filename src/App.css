@@ -4,6 +4,12 @@ body {
     font-family: "Outfit", sans-serif;
     
 }
+main {
+    background-color: #000000;
+    width: 80%;
+    margin: 0 auto;
+
+}
 
  h1 {
     text-align: center;
@@ -15,6 +21,13 @@ h2 {
     text-align: center;
 }
 
+ footer {
+    background-color: #60656F;
+    text-align: center;
+    padding: 15px;
+    height: 50px;
+    width: 100%;
+ }
 
  
 

@@ -6,7 +6,7 @@ import './App.css';
 function App() {
   return (
     <div>
-      <h1>Cardápio Online</h1>
+      <header><h1>Cardápio Online</h1></header>
       <Menu />
     </div>
   );
