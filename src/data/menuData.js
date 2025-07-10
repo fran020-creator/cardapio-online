@@ -34,6 +34,13 @@ const menu=[
         preco:42.90,
         imagem:"/pizza-marguerita.jpg"
     },
+    {
+        id:5,
+        nome:"Pizza de Marguerita",
+        descricao:"Massa fina tradicional, Queijo bufala, tomates secos e manjericão.",
+        preco:42.90,
+        imagem:"/pizza-marguerita.jpg"
+    }
 ];
 
 export default menu;
