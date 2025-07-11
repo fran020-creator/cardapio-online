@@ -34,6 +34,13 @@ const menu=[
         preco:42.90,
         imagem:"/pizza-marguerita.jpg"
     },
+    {
+        id:6,
+        nome:"Pizza de4 Queijos",
+        descricao:"Massa fina tradicional, Queijo mussarela, gorgonzola, parmesão e provolone.",
+        preco:42.90,
+        imagem:"/pizza-queijo.jpg"
+    },
 ];
 
 export default menu;

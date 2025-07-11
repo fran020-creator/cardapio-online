@@ -7,9 +7,10 @@ import MenuItem from "./MenuItem";
 function Menu() {
     return(
         <div>
-            <h2>Cardápio</h2>
-            <div style={{display: "grid",
-            gridTemplateColumns: "1fr 1fr", gap:20}}>
+            <div style={{ display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+                columnGap: 1,
+                rowGap: 8}}>
                 {menu.map(item=>(
                     <MenuItem key={item.id} {...item}/>
                 ))}
