@@ -1,76 +1,86 @@
 body {
-    background-color: #4b4a4a;
-    color: rgb(0, 0, 0);
-    font-family: "Outfit", sans-serif;
-    
+  background-color: #f3eed2;
+  color: rgb(0, 0, 0);
+  font-family: "Outfit", sans-serif;
+
 }
 
-header {
+.logo {
+  height: 160px;
+  width: 160px;
+}
+
+.titulo {
+  text-align: center;
+  font-size: 3em;
+}
+
+.header {
+  text-align: center;
   background-color: #eee9e9;
-  box-shadow: 0px 4px 10px #35343488;
+  box-shadow: 0px 4px 10px #3534346b;
   border-radius: 0px 0px 10px 10px;
   width: 100% auto;
-  height: 80px;
-  padding: 20px;
+  height: 230px;
+  padding-bottom: 10px;
 }
 
-
-main {
-    background-color: #E6E8E6;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.459);
-    border-radius: 8px 8px 0px 0px;
-    width: 80%;
-    margin: auto;
-    margin-top: 10px;
+.conteudo {
+  background-color: #ebebe8;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.384);
+  border-radius: 8px;
+  width: 80%;
+  margin: auto;
+  margin-top: 40px;
 }
 
-img {
-  margin: 8px;
-}
-
-
-.divimg {
-  background-color: #4b4a4a ;
+.div-img {
+  background-color: #ffffff;
   text-align: center;
-  border-radius: 16%;
-  margin: 8px;
-  margin-left: 150px;
+  border: 0.5px solid rgba(0, 0, 0, 0.432);
+  border-radius: 10%;
+  margin: 30px;
+  margin-left: 40px;
   margin-top: 10px;
   padding: 5px;
-  width: 39%;
+  width: 250px;
+  height: 250px;
   transition: transform 0.3s ease;
-  
 }
 
-.divimg:hover {
+.div-img:hover {
   transform: scale(1.05);
-  box-shadow: 0px 4px 10px #4b4a4a8e;
+  box-shadow: 0px 4px 10px #4b4a4a7c;
 }
 
-
- h1 {
-    text-align: center;
-    font-size: 3em;
+.preco-btn {
+  background-color: #726f6f;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
-h2 {
-    padding: 5px;
-    text-align: center;
+.preco-btn:hover {
+  background-color: #3b3b3b;
 }
 
- footer {
-    background-color: #bec2be;
-    border-radius: 0px 0px 18px 18px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.459);
-    text-align: center;
-    padding: 15px;
-    height: 30px;
-    width: 1051px;
-    margin: 0 auto;
+.footer {
+  background-color: #cfd3b7;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+  height: 30px;
+  width: 100%;
+}
 
- }
-
- 
-
- 
-
+.descricao-footer:hover {
+  text-decoration: underline;
+}

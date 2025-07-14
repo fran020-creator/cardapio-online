@@ -8,12 +8,13 @@ function Menu() {
     return(
         <div>
             <div style={{ display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-                columnGap: 1,
+            gridTemplateColumns: "1fr 1fr 1fr",
+                columnGap: 4,
                 rowGap: 8}}>
                 {menu.map(item=>(
                     <MenuItem key={item.id} {...item}/>
                 ))}
+                
             </div>
         </div>
     );    
