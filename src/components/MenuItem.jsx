@@ -1,6 +1,6 @@
 function MenuItem({nome,descricao,preco,imagem}){
     return(
-        <div class="div-img">
+        <div className="div-img">
             <img src={imagem} alt={nome}style={{width:120,height:120}}/>
             <h3>{nome}</h3>
             <p>{descricao}</p>
