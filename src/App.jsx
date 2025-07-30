@@ -1,13 +1,46 @@
 import Menu from './components/Menu';
+import Carrinho from './components/Carrinho';
 import './reset.css';
 import './App.css';
+import { useState } from 'react';
 
 
 function App() {
+
+  const [carrinho,setCarrinho]=useState([]);
+
+  function adicionarAoCarrinho(item){
+    setCarrinho((prev)=>[...prev,item]);
+  }
+
+  function removerDoCarrinho(index){
+    setCarrinho((prev)=>prev.filter((_,i)=>i!==index));
+  }
+
+  function finalizarPedido(){
+    if(carrinho.length > 0){
+      alert(`Pedido finalizado! Total: R$${total.toFixed(2)}\n\nItens:\n${carrinho.map(item => `- ${item.nome}: R$${item.preco.toFixed(2)}`).join('\n')}`);
+      setCarrinho([]);
+    } else {
+      alert('Seu carrinho está vazio!');
+    }
+  }
+
+  const total = carrinho.reduce((soma,item)=>soma + item.preco,0);
+
+
+
+
   return (
     <div>
       <header><img src="/logo.jpg" alt="Logo do Restaurante" style={{ height: '90px' }} /></header>
-      <Menu />
+      <Menu adicionarAoCarrinho={adicionarAoCarrinho} />
+      <Carrinho 
+        itens={carrinho} 
+        total={total} 
+        removerDoCarrinho={removerDoCarrinho}
+        finalizarPedido={finalizarPedido}
+      />
       <footer>
         <div className="footer-infos">
           Restaurante Joao & Fran | Rua das Oliveiras, 123 - Centro, Cidade/UF<br />

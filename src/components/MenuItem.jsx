@@ -11,7 +11,7 @@ function getIcon(icon) {
   }
 }
 
-function MenuItem({ nome, descricao, preco, imagem, icones = [] }) {
+function MenuItem({ nome, descricao, preco, imagem, icones = [], adicionarAoCarrinho }) {
   return (
     <div className="menu-item">
       <img src={imagem} alt={nome} />
@@ -21,8 +21,13 @@ function MenuItem({ nome, descricao, preco, imagem, icones = [] }) {
       </div>
       <div className="descricao">{descricao}</div>
       <span className="preco-badge">R${typeof preco === "number" ? preco.toFixed(2) : "Preço não encontrado"}</span>
-      <button className="btn-pedir">Adicionar ao pedido</button>
+      <button className="btn-pedir" onClick={() => adicionarAoCarrinho({ nome, preco })}>
+        Adicionar ao pedido
+      </button>
     </div>
   );
 }
+
+
+
 export default MenuItem;
