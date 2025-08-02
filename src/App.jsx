@@ -3,6 +3,7 @@ import Carrinho from './components/Carrinho';
 import './reset.css';
 import './App.css';
 import { useState } from 'react';
+import { pedidosService } from './services/api';
 
 
 function App() {
@@ -17,10 +18,32 @@ function App() {
     setCarrinho((prev)=>prev.filter((_,i)=>i!==index));
   }
 
-  function finalizarPedido(){
+  async function finalizarPedido(){
     if(carrinho.length > 0){
-      alert(`Pedido finalizado! Total: R$${total.toFixed(2)}\n\nItens:\n${carrinho.map(item => `- ${item.nome}: R$${item.preco.toFixed(2)}`).join('\n')}`);
-      setCarrinho([]);
+      try {
+        // Preparar dados do pedido
+        const pedidoData = {
+          itens: carrinho.map(item => ({
+            nome: item.nome,
+            preco: item.preco,
+            quantidade: 1
+          })),
+          total: total
+        };
+
+        // Enviar para o backend
+        const response = await pedidosService.criarPedido(pedidoData);
+        
+        if (response.success) {
+          alert(`✅ Pedido finalizado com sucesso!\n\nTotal: R$${total.toFixed(2)}\n\nItens:\n${carrinho.map(item => `- ${item.nome}: R$${item.preco.toFixed(2)}`).join('\n')}\n\nID do Pedido: ${response.pedido._id}`);
+          setCarrinho([]);
+        } else {
+          alert('❌ Erro ao finalizar pedido. Tente novamente.');
+        }
+      } catch (error) {
+        console.error('Erro ao finalizar pedido:', error);
+        alert(`❌ Erro ao finalizar pedido: ${error.message}`);
+      }
     } else {
       alert('Seu carrinho está vazio!');
     }
