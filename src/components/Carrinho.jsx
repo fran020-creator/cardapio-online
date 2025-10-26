@@ -9,21 +9,25 @@ function Carrinho({ itens, total, removerDoCarrinho, finalizarPedido }) {
       ) : (
         <>
           <ul>
-            {itens.map((item, idx) => (
-              <li key={idx} className="carrinho-item">
-                <div className="item-info">
-                  <span className="item-nome">{item.nome}</span>
-                  <span className="item-preco">R${item.preco.toFixed(2)}</span>
-                </div>
-                <button 
-                  className="btn-remover" 
-                  onClick={() => removerDoCarrinho(idx)}
-                  title="Remover item"
-                >
-                  ×
-                </button>
-              </li>
-            ))}
+            {itens.map((item, idx) => {
+              const quantidade = item.quantidade || 1;
+              const subtotal = item.preco * quantidade;
+              return (
+                <li key={idx} className="carrinho-item">
+                  <div className="item-info">
+                    <span className="item-nome">{item.nome} {quantidade > 1 && `x${quantidade}`}</span>
+                    <span className="item-preco">R${subtotal.toFixed(2)}</span>
+                  </div>
+                  <button 
+                    className="btn-remover" 
+                    onClick={() => removerDoCarrinho(idx)}
+                    title="Remover item"
+                  >
+                    ×
+                  </button>
+                </li>
+              );
+            })}
           </ul>
           <hr />
           <div className="carrinho-footer">

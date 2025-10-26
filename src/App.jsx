@@ -11,12 +11,29 @@ function App() {
   const [carrinho,setCarrinho]=useState([]);
 
   function adicionarAoCarrinho(item){
-    setCarrinho((prev)=>[...prev,item]);
+    setCarrinho((prev)=> {
+      // Verifica se o item já existe no carrinho
+      const itemExistente = prev.find(i => i.nome === item.nome);
+      if (itemExistente) {
+        // Se existe, aumenta a quantidade
+        return prev.map(i => 
+          i.nome === item.nome ? { ...i, quantidade: (i.quantidade || 1) + 1 } : i
+        );
+      }
+      // Se não existe, adiciona com quantidade 1
+      return [...prev, { ...item, quantidade: 1 }];
+    });
   }
 
   function removerDoCarrinho(index){
-    setCarrinho((prev)=>prev.filter((_,i)=>i!==index));
+    setCarrinho((prev) => prev.filter((_, i) => i !== index));
   }
+
+  // Calcular total
+  const total = carrinho.reduce((soma, item) => {
+    const quantidade = item.quantidade || 1;
+    return soma + (item.preco * quantidade);
+  }, 0);
 
   async function finalizarPedido(){
     if(carrinho.length > 0){
@@ -26,7 +43,7 @@ function App() {
           itens: carrinho.map(item => ({
             nome: item.nome,
             preco: item.preco,
-            quantidade: 1
+            quantidade: item.quantidade || 1
           })),
           total: total
         };
@@ -35,7 +52,12 @@ function App() {
         const response = await pedidosService.criarPedido(pedidoData);
         
         if (response.success) {
-          alert(`✅ Pedido finalizado com sucesso!\n\nTotal: R$${total.toFixed(2)}\n\nItens:\n${carrinho.map(item => `- ${item.nome}: R$${item.preco.toFixed(2)}`).join('\n')}\n\nID do Pedido: ${response.pedido._id}`);
+          const itensTexto = carrinho.map(item => {
+            const quantidade = item.quantidade || 1;
+            return `- ${item.nome} x${quantidade}: R$${(item.preco * quantidade).toFixed(2)}`;
+          }).join('\n');
+          
+          alert(`✅ Pedido finalizado com sucesso!\n\nTotal: R$${total.toFixed(2)}\n\nItens:\n${itensTexto}\n\nID do Pedido: ${response.pedido._id}`);
           setCarrinho([]);
         } else {
           alert('❌ Erro ao finalizar pedido. Tente novamente.');
@@ -48,8 +70,6 @@ function App() {
       alert('Seu carrinho está vazio!');
     }
   }
-
-  const total = carrinho.reduce((soma,item)=>soma + item.preco,0);
 
 
 
