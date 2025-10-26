@@ -33,6 +33,8 @@ lerna-debug.log*
 .env
 .env.*.local
 *.local
+config.env
+config.atlas.env
 
 # ------------------------
 # Editor directories and files
@@ -76,6 +78,22 @@ public/*.cache.*
 # Ignore eslint cache
 # ------------------------
 .eslintcache
+
+# ------------------------
+# Backend specific
+# ------------------------
+backend/node_modules/
+backend/logs/
+backend/.env
+backend/config.env
+backend/config.atlas.env
+
+# ------------------------
+# Database files
+# ------------------------
+*.db
+*.sqlite
+*.sqlite3
 
 # ------------------------
 # Optional: Lock files (uncomment if not versioned)

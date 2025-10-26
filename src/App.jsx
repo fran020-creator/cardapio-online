@@ -1,13 +1,80 @@
 import Menu from './components/Menu';
+import Carrinho from './components/Carrinho';
 import './reset.css';
 import './App.css';
+import { useState } from 'react';
+import { pedidosService } from './services/api';
 
 
 function App() {
+
+  const [carrinho,setCarrinho]=useState([]);
+
+  function adicionarAoCarrinho(item){
+    setCarrinho((prev)=>[...prev,item]);
+  }
+
+  function removerDoCarrinho(index){
+    setCarrinho((prev)=>prev.filter((_,i)=>i!==index));
+  }
+
+  async function finalizarPedido(){
+    if(carrinho.length > 0){
+      try {
+        // Preparar dados do pedido
+        const pedidoData = {
+          itens: carrinho.map(item => ({
+            nome: item.nome,
+            preco: item.preco,
+            quantidade: 1
+          })),
+          total: total
+        };
+
+        // Enviar para o backend
+        const response = await pedidosService.criarPedido(pedidoData);
+        
+        if (response.success) {
+          alert(`✅ Pedido finalizado com sucesso!\n\nTotal: R$${total.toFixed(2)}\n\nItens:\n${carrinho.map(item => `- ${item.nome}: R$${item.preco.toFixed(2)}`).join('\n')}\n\nID do Pedido: ${response.pedido._id}`);
+          setCarrinho([]);
+        } else {
+          alert('❌ Erro ao finalizar pedido. Tente novamente.');
+        }
+      } catch (error) {
+        console.error('Erro ao finalizar pedido:', error);
+        alert(`❌ Erro ao finalizar pedido: ${error.message}`);
+      }
+    } else {
+      alert('Seu carrinho está vazio!');
+    }
+  }
+
+  const total = carrinho.reduce((soma,item)=>soma + item.preco,0);
+
+
+
+
   return (
     <div>
-      <header><h1>Cardápio Online</h1></header>
-      <Menu />
+      <header><img src="/logo.jpg" alt="Logo do Restaurante" style={{ height: '90px' }} /></header>
+      <Menu adicionarAoCarrinho={adicionarAoCarrinho} />
+      <Carrinho 
+        itens={carrinho} 
+        total={total} 
+        removerDoCarrinho={removerDoCarrinho}
+        finalizarPedido={finalizarPedido}
+      />
+      <footer>
+        <div className="footer-infos">
+          Restaurante Joao & Fran | Rua das Oliveiras, 123 - Centro, Cidade/UF<br />
+          Seg a Sáb: 11h30 às 23h | Dom: 12h às 17h
+        </div>
+        <div className="footer-social">
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.241 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.241 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.241-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608C4.515 2.567 5.782 2.295 7.148 2.233 8.414 2.175 8.794 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.771.131 4.659.363 3.678 1.344c-.98.98-1.213 2.092-1.272 3.374C2.013 5.668 2 6.077 2 12c0 5.923.013 6.332.072 7.612.059 1.282.292 2.394 1.272 3.374.98.98 2.092 1.213 3.374 1.272C8.332 23.987 8.741 24 12 24s3.668-.013 4.948-.072c1.282-.059 2.394-.292 3.374-1.272.98-.98 1.213-2.092 1.272-3.374.059-1.28.072-1.689.072-7.612 0-5.923-.013-6.332-.072-7.612-.059-1.282-.292-2.394-1.272-3.374-.98-.98-2.092-1.213-3.374-1.272C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35C.595 0 0 .592 0 1.326v21.348C0 23.408.595 24 1.326 24H12.82v-9.294H9.692v-3.622h3.127V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.324-.592 1.324-1.326V1.326C24 .592 23.405 0 22.675 0"/></svg></a>
+          <a href="https://wa.me/5599999999999" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.62A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.25-1.45l-.38-.22-3.69.96.99-3.59-.25-.37A9.94 9.94 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.2-7.6c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.3 0 1.36.98 2.68 1.12 2.87.14.18 1.93 2.95 4.68 4.02.65.28 1.16.45 1.56.58.65.21 1.24.18 1.7.11.52-.08 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z"/></svg></a>
+        </div>
+      </footer>
     </div>
   );
 }
